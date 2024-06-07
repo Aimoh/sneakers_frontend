@@ -4,6 +4,7 @@ import CardLIst from '@/components/CardLIst.vue'
 import axios from 'axios'
 import debounce from 'lodash.debounce'
 import { inject, onMounted, reactive, ref, watch } from 'vue'
+import { fetchItemsList } from '@/api/home.js'
 
 const { cart, addToCart, removeFromCart } = inject('cart')
 
@@ -109,8 +110,10 @@ const fetchItems = async () => {
 onMounted(async () => {
   const localCart = localStorage.getItem('cart')
   cart.value = localCart ? JSON.parse(localCart) : []
-
-  await fetchItems()
+  const list = await fetchItemsList()
+  items.value = list
+  console.log(list)
+  // await fetchItems()
   await fetchFavorites()
 
   items.value = items.value.map((item) => ({
