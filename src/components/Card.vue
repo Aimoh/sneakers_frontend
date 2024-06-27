@@ -1,13 +1,15 @@
 <script setup>
 defineProps({
   title: String,
-  imageUrl: String,
+  image_url: String,
   price: Number,
   isFavorite: Boolean,
   isAdded: Boolean,
   onClickAdd: Function,
   onClickFavorite: Function
 })
+
+const prefix = import.meta.env.VITE_API_BASE_IMG;
 
 </script>
 
@@ -23,7 +25,7 @@ defineProps({
       @click="onClickFavorite"
     />
 
-    <img :src="imageUrl" alt="Sneaker" />
+    <img :src="prefix + image_url" alt="Sneaker" />
     <p class="mt-2">{{ title }}</p>
 
     <div class="flex justify-between mt-5">

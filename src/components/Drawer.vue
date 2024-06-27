@@ -5,7 +5,7 @@ import InfoBlock from '@/components/InfoBlock.vue'
 
 
 
-import axios from 'axios'
+import axios from '@/api/index.js'
 import { ref, computed, inject } from 'vue'
 
 
@@ -22,9 +22,8 @@ const orderId = ref(null)
 const createOrder = async () => {
   try {
     isCreating.value = true
-    const { data } = await axios.post(`https://ce1f5cf30cf45e0a.mokky.dev/orders`, {
-      items: cart.value,
-      totalPrice: props.totalPrice.value
+    const { data } = await axios.post(`/orders`, {
+      items_ids: cart.value.map(el => el.id)
     })
 
     cart.value = []
